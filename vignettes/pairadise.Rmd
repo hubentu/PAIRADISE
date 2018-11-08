@@ -1,0 +1,107 @@
+---
+title: "PAIRADISE"
+author:
+- name: "Qiang Hu"
+  affliation: Roswell Park Comprehensive Cancer Center, Buffalo, NY
+date: "`r Sys.Date()`"
+output:
+    BiocStyle::html_document:
+        toc: true
+        toc_float: true
+vignette: >
+  %\VignetteIndexEntry{PAIRADISE}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+# Introduction
+We introduce PAIRADISE (PAIred Replicate analysis of Allelic DIfferential Splicing Events), a method for detecting allele-specific alternative splicing (ASAS) from RNA-seq data. PAIRADISE uses a statistical model that aggregates ASAS signals across multiple individuals in a population. It formulates ASAS detection as a statistical problem for identifying differential alternative splicing from RNA-seq data with paired replicates. The PAIRADISE statistical model is applicable to many forms of allele-specific isoform variation (e.g. RNA editing), and can be used as a generic statistical model for RNA-seq studies involving paired replicates. More details can be found: https://github.com/Xinglab/PAIRADISE
+
+# Installation
+1. Download the package. 
+
+```{r getPackage, eval=FALSE}
+if (!requireNamespace("BiocManager", quietly = TRUE))
+    install.packages("BiocManager")
+BiocManager::install("PAIRADISE")
+```
+The development version is also available to download from Github. 
+```{r getDevel, eval=FALSE}
+BiocManager::install("hubentu/PAIRADISE")
+```
+
+2. Load the package into R session.
+```{r Load, message=FALSE}
+library(PAIRADISE)
+```
+
+# PAIRADISE
+## PDseDataSet
+A `PDseDataSet` class is defined to store the splicing count data, which contains inclusion and skipping counts for each sample. A design `dataframe` is required to descibe the paired sample information. A integer `dataframe` of inclusion and skipping lengths are also required. The `PDseDataSet` extended the `SummarizedExperiment` class. All functions from `SummarizedExperiment` are inherited.
+
+Here is an example to construct a `PDseDataSet` with 2 pairs of samples.
+```{r}
+library(abind)
+icount <- matrix(1:4, 1)
+scount <- matrix(5:8, 1)
+acount <- abind(icount, scount, along = 3)
+acount
+design <- data.frame(sample = rep(c("s1", "s2"), 2),
+                     group = rep(c("T", "N"), each = 2))
+lens <- data.frame(sLen=1L, iLen=2L)
+PDseDataSet(acount, design, lens)
+```
+
+A count matrix from rMATs/PAIRADISE can be imported as `PDseDataSet` directly.
+```{r}
+data("sample_dataset")
+sample_dataset
+```
+
+Each row of the data corresponds to a different alternative splicing event. The data should have 7 columns, arranged as follows:
+
+1. Column 1 contains the ID of the alternative splicing events.
+2. Column 2 contains counts of isoform 1 corresponding to the first group.
+3. Column 3 contains counts of isoform 2 corresponding to the first group.
+4. Column 4 contains counts of isoform 1 corresponding to the second group.
+5. Column 5 contains counts of isoform 2 corresponding to the second group.
+6. Column 6 contains the effective length of isoform 1.
+7. Column 7 contains the effective length of isoform 2.
+
+To import the data to a `PDseDataSet` object.
+```{r}
+pdat <- PDseDataSetFromMat(sample_dataset)
+pdat
+```
+
+## `pairadise` method
+The `pairadise` function implemented the PAIRADISE Statistical Model for the `PDseDataSet` object. Multiple processors can be used via the `BiocParallel` pacakge. The function return a `PDseDataSet` object with statistical estimates in its `rowData`. Here is how to run the model with 2 threads.
+```{r}
+pdat <- pairadise(pdat, numCluster = 2)
+```
+
+## Output
+A function `results` can be used to calculate p values and filter the significant results. For example, results with FDR of significant level 0.01 can be obtained as follow.
+```{r}
+res <- results(pdat, p.adj = "BH", sig.level = 0.01)
+res
+```
+
+With `details=TRUE`, more detailed statistical estimates can be returned.
+```{r}
+res <- results(pdat, details = TRUE)
+colnames(res)
+res$latent[3,]
+```
+
+# SessionInfo
+```{r}
+sessionInfo()
+```
