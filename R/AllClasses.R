@@ -62,6 +62,14 @@ PDseDataSet <- function(counts, design, lengths){
     new("PDseDataSet", se)
 }
 
+.appNA <- function(datL){
+    ssize <- max(lengths(datL[[1]]))
+    for(ct in c("I1", "S1", "I2", "S2")){
+        datL[[ct]] <- lapply(datL[[ct]], function(x)c(x, rep(NA, ssize - length(x))))
+    }
+    return(datL)
+}
+
 #' PDseDataSet from rMATs/PAIRADISE Mat format
 #'
 #' The Mat format should have 7 columns, arranged as follows:
@@ -80,16 +88,18 @@ PDseDataSet <- function(counts, design, lengths){
 #' @export
 PDseDataSetFromMat <- function(dat){
     datL <- clean.data(dat)
+    datL <- .appNA(datL)
     lens <- data.frame(iLen = as.integer(datL$length_I),
                        sLen = as.integer(datL$length_S))
+
     iCounts <- cbind(do.call(rbind, datL$I1),
                      do.call(rbind, datL$I2))
     sCounts <- cbind(do.call(rbind, datL$S1),
                      do.call(rbind, datL$S2))
     counts <- abind(iCounts, sCounts, along = 3)
     ##design
-    design <- DataFrame(sample=rep(paste0("S", 1:datL$M[1]), 2),
-                        group=rep(c("T", "N"), each=datL$M[1]))
+    design <- DataFrame(sample=rep(paste0("S", seq(max(datL$M))), 2),
+                        group=rep(c("T", "N"), each=max(datL$M)))
     ##counts
     ids <- paste(design$sample, design$group, sep=".")
     rownames(counts) <- rownames(lens) <- datL$exonList

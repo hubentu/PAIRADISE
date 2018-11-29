@@ -1,6 +1,6 @@
 Package: PAIRADISE
 Title: PAIRADISE: Paired analysis of differential isoform expression
-Version: 0.99.0
+Version: 0.99.1
 Author: Levon Demirdjian, Shihao Shen, Ying Nian Wu, Yi Xing
 Maintainer: Levon Demirdjian <levondem@ucla.edu>
 Description: This package implements the PAIRADISE procedure for detecting
@@ -9,7 +9,7 @@ Description: This package implements the PAIRADISE procedure for detecting
 Depends: R (>= 3.5.1), nloptr
 Imports: SummarizedExperiment, S4Vectors, methods, abind, BiocParallel
 License: MIT + file LICENSE
-RoxygenNote: 6.1.0
+RoxygenNote: 6.1.1
 Encoding: UTF-8
 VignetteBuilder: knitr
 Suggests: 

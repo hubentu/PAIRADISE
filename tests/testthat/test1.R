@@ -11,5 +11,5 @@ test_that("return 2 sig results", {
 
 test_that("valid counts", {
     expect_equal(ncol(res$latent[1,]$latent), 3)
-    expect_equal(ncol(res$latent[3,]$latent), 2)
+    expect_equal(ncol(res$latent[3,]$latent), 3)
 })
