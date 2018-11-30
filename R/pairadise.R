@@ -87,7 +87,7 @@ pairadise <- function(pdat, nIter = 100, tol = 10^(-2), pseudocount = 0,
 
 results <- function(pdat, p.adj = "BH", sig.level = 0.01, details = FALSE){
     stopifnot(is(pdat, "PDseDataSet"))
-    if (sig.level <= 0 | sig.level >= 1) {
+    if (sig.level < 0 | sig.level > 1) {
         stop("Error: Significance level must be strictly between 0 and 1")
     }
     if(!"outs" %in% colnames(rowData(pdat))) stop("Please run pairadise first")
