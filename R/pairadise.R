@@ -141,7 +141,7 @@ results <- function(pdat, p.adj = "BH", sig.level = 0.01, details = FALSE){
     colnames(count1) <- c("I1", "S1", "I2", "S2")
     ## valid
     count1 <- na.omit(count1)
-    count1 <- count1[rowSums(count1) > 0,]
+    count1 <- count1[(rowSums(count1[,1:2]) > 0) & (rowSums(count1[,3:4]) > 0),]
     
     I1 <- count1$I1 + pseudocount
     S1 <- count1$S1 + pseudocount
