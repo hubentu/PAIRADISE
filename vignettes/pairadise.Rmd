@@ -63,6 +63,16 @@ A count matrix can be imported as a `PDseDataSet` directly.
 ```{r}
 data("sample_dataset")
 sample_dataset
+
+
+```
+
+PAIRADISE also includes two small sample datasets from Geuvadis and TCGA:
+
+```{r}
+data("sample_dataset_CEU")
+
+data("sample_dataset_LUSC")
 ```
 
 Each row of the data corresponds to a different alternative splicing event. The data should have 7 columns, arranged as follows:
