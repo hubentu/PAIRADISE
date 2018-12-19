@@ -37,14 +37,14 @@ The development version is also available to download from Github.
 BiocManager::install("hubentu/PAIRADISE")
 ```
 
-2. Load the package into R session.
+2. Load the package into the R session.
 ```{r Load, message=FALSE}
 library(PAIRADISE)
 ```
 
 # PAIRADISE
 ## PDseDataSet
-A `PDseDataSet` class is defined to store the splicing count data, which contains inclusion and skipping counts for each sample. A design `dataframe` is required to descibe the paired sample information. A integer `dataframe` of inclusion and skipping lengths are also required. The `PDseDataSet` extended the `SummarizedExperiment` class. All functions from `SummarizedExperiment` are inherited.
+A `PDseDataSet` class is defined to store the splicing count data, and contains inclusion and skipping counts for each sample. A design `dataframe` is required to describe the paired sample information. An integer `dataframe` of inclusion and skipping lengths are also required. The `PDseDataSet` extends the `SummarizedExperiment` class. All functions from `SummarizedExperiment` are inherited.
 
 Here is an example to construct a `PDseDataSet` with 2 pairs of samples.
 ```{r}
@@ -59,7 +59,7 @@ lens <- data.frame(sLen=1L, iLen=2L)
 PDseDataSet(acount, design, lens)
 ```
 
-A count matrix from rMATs/PAIRADISE can be imported as `PDseDataSet` directly.
+A count matrix can be imported as a `PDseDataSet` directly.
 ```{r}
 data("sample_dataset")
 sample_dataset
@@ -82,21 +82,21 @@ pdat
 ```
 
 ## `pairadise` method
-The `pairadise` function implemented the PAIRADISE Statistical Model for the `PDseDataSet` object. Multiple processors can be used via the `BiocParallel` pacakge. The function return a `PDseDataSet` object with statistical estimates in its `rowData`. Here is how to run the model with 2 threads.
+The `pairadise` function implements the PAIRADISE statistical model for the `PDseDataSet` object. Multiple processors can be used via the `BiocParallel` package. The function returns a `PDseDataSet` object with statistical estimates in its `rowData`. Here is how to run the model with 2 threads.
 ```{r}
-pdat <- pairadise(pdat, numCluster = 2)
+pairadise_output <- pairadise(pdat, numCluster = 2)
 ```
 
 ## Output
-A function `results` can be used to calculate p values and filter the significant results. For example, results with FDR of significant level 0.01 can be obtained as follow.
+A function `results` can be used to calculate p values and filter the significant results. For example, results significant at an FDR of 0.01 can be obtained as follows.
 ```{r}
-res <- results(pdat, p.adj = "BH", sig.level = 0.01)
+res <- results(pairadise_output, p.adj = "BH", sig.level = 0.01)
 res
 ```
 
 With `details=TRUE`, more detailed statistical estimates can be returned.
 ```{r}
-res <- results(pdat, details = TRUE)
+res <- results(pairadise_output, details = TRUE)
 colnames(res)
 res$latent[3,]
 ```
