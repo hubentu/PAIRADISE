@@ -28,14 +28,15 @@ Removes missing data and invalid pairs from the matched pair data
 to be analyzed by PAIRADISE.
 }
 \details{
-The data frame has 7 columns, arranged as follows: Column
-    1 contains the ID of the exons/events.  Column 2 contains
-    counts of isoform 1 corresponding to the first group.  Column 3
-    contains counts of isoform 2 corresponding to the first group.
-    Column 4 contains counts of isoform 1 corresponding to the
-    second group.  Column 5 contains counts of isoform 2
-    corresponding to the second group.  Replicates in columns 2-5
-    should be separated by commas, e.g. 1623,432,6 for three
-    replicates.  Column 6 contains the effective length of isoform
-    1.  Column 7 contains the effective length of isoform 2.
+The data frame has 7 columns, arranged as follows:
+Column 1 contains the ID of the exons/events.
+Column 2 contains counts of isoform 1 corresponding to the first group.
+Column 3 contains counts of isoform 2 corresponding to the first group.
+Column 4 contains counts of isoform 1 corresponding to the
+    second group.
+Column 5 contains counts of isoform 2 corresponding to the second group.
+Replicates in columns 2-5 should be separated by commas, e.g. 1623,432,6 for three replicates.
+Column 6 contains the effective length of isoform 1.
+Column 7 contains the effective length of isoform 2.
 }
+\keyword{internal}

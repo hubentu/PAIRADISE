@@ -24,6 +24,7 @@
 #' Replicates in columns 2-5 should be separated by commas, e.g. 1623,432,6 for three replicates.
 #' Column 6 contains the effective length of isoform 1.
 #' Column 7 contains the effective length of isoform 2.
+#' @keywords internal
 
 load.data <- function(my.data) {
     

@@ -15,3 +15,4 @@ sigmoid(x)
 \description{
 Takes in a vector and applies the sigmoid function elementwise to that vector
 }
+\keyword{internal}

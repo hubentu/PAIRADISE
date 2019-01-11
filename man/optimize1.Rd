@@ -38,3 +38,4 @@ The MLEs.
 \description{
 Used internally in PAIRADISE to compute the MLEs of delta, mu, sigma1, sigma2, sigma
 }
+\keyword{internal}

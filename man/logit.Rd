@@ -15,3 +15,4 @@ logit(x)
 \description{
 Takes in a vector and applies the logit function elementwise to that vector
 }
+\keyword{internal}

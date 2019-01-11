@@ -44,3 +44,4 @@ log likelihood value at input.
 \description{
 Used internally in PAIRADISE to compute the log-likelihood function
 }
+\keyword{internal}

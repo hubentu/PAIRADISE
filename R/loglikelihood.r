@@ -20,7 +20,7 @@
 #' @param mu Parameter mu.
 #' @param delta Parameter delta.
 #' @return log likelihood value at input.
-#' 
+#' @keywords internal
 
 loglikelihood <- function(M, I1, S1, I2, S2, l.iI, l.iS, logit.psi1, logit.psi2, 
     alpha, s1, s2, s, mu, delta) {

@@ -18,6 +18,7 @@
 #' @param s2 Group 2 standard deviation. Positive number.
 #' @param s Overall standard deviation. Positive number.
 #' @return The MLEs.
+#' @keywords internal
 
 optimize2 <- function(x, k, I1, S1, I2, S2, l.iI, l.iS, delta, mu, s1, s2, s) {
     

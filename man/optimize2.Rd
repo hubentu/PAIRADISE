@@ -39,3 +39,4 @@ The MLEs.
 \description{
 Used internally in PAIRADISE to compute the MLEs of logit(psi1), logit(psi2), alpha
 }
+\keyword{internal}
