@@ -59,14 +59,16 @@ pairadise <- function(pdat, nIter = 100, tol = 10^(-2), pseudocount = 0,
     }
 
     if(numCluster > 1){
-        outs <- bplapply(pdat, .pairadise, BPPARAM = BPPARAM,
-                         nIter = nIter, tol = tol,
-                         pseudocount = pseudocount, seed = seed,
-                         equal.variance = equal.variance)
+        outs <- bplapply(
+            pdat, .pairadise, BPPARAM = BPPARAM,
+            nIter = nIter, tol = tol,
+            pseudocount = pseudocount, seed = seed,
+            equal.variance = equal.variance)
     }else{
-        outs <- lapply(pdat, .pairadise, nIter = nIter, tol = tol,
-                       pseudocount = pseudocount, seed = seed,
-                       equal.variance = equal.variance)
+        outs <- lapply(
+            pdat, .pairadise, nIter = nIter, tol = tol,
+            pseudocount = pseudocount, seed = seed,
+            equal.variance = equal.variance)
     }
     outs <- do.call(rbind, outs)
     rowData(pdat)$outs <- outs
@@ -79,12 +81,17 @@ pairadise <- function(pdat, nIter = 100, tol = 10^(-2), pseudocount = 0,
 #' @param sig.level The cutoff of significant results
 #' @param details Whether to list detailed results.
 #' @return The function return a results DataFrame.
-#' \item{testStats}{Vector of test statistics for paired analysis.}
-#' \item{p.value}{Vector of pvalues for each exon/event.}
-#' \item{p.adj}{The adjusted p values}
-#' If details is TRUE, more detailed parameter estimates for constrained and unconstrained model will return.
+#'     \item{testStats}{Vector of test statistics for paired
+#'     analysis.}  \item{p.value}{Vector of pvalues for each
+#'     exon/event.}  \item{p.adj}{The adjusted p values} If details is
+#'     TRUE, more detailed parameter estimates for constrained and
+#'     unconstrained model will return.
 #' @export
-
+#' @examples
+#' data("sample_dataset")
+#' pdat <- PDseDataSetFromMat(sample_dataset)
+#' pdat <- pairadise(pdat)
+#' results(pdat)
 results <- function(pdat, p.adj = "BH", sig.level = 0.01, details = FALSE){
     stopifnot(is(pdat, "PDseDataSet"))
     if (sig.level < 0 | sig.level > 1) {
@@ -99,18 +106,22 @@ results <- function(pdat, p.adj = "BH", sig.level = 0.01, details = FALSE){
     paired.testStats <- unlist(outs[,1])
     ## All of the p-values of paired test
     total.pvals.paired <- 1 - pchisq(paired.testStats, 1)
-    stat <- DataFrame(testStats=paired.testStats,
-                      p.value=total.pvals.paired)
+    stat <- DataFrame(
+        testStats=paired.testStats,
+        p.value=total.pvals.paired)
 
     if(details){
         params <- data.frame(outs[,c(3,5:7,2, 4,8:10, 18)])
-        colnames(params) <- c("mu.u", "s1.u", "s2.u", "s.u", "delta",
-                              "mu.c", "s1.c", "s2.c", "s.c", "totalIter")
+        colnames(params) <- c(
+            "mu.u", "s1.u", "s2.u", "s.u", "delta",
+            "mu.c", "s1.c", "s2.c", "s.c", "totalIter")
 
-        latent <- lapply(1:nrow(outs), function(i){
+        latent <- lapply(seq_len(nrow(outs)), function(i){
             x <- outs[i,]
             lat <- do.call(rbind, (x[c(11:16)]))
-            rownames(lat) <- paste(c("psi1", "psi2", "alpha"), rep(c("u", "c"), each=3), sep=".")
+            rownames(lat) <- paste(
+                c("psi1", "psi2", "alpha"),
+                rep(c("u", "c"), each=3), sep=".")
             lat
         })
         params$latent <- cbind(latent)
@@ -195,7 +206,7 @@ results <- function(pdat, p.adj = "BH", sig.level = 0.01, details = FALSE){
     MLE1.upper.u <- c(s.upper, s.upper, s.upper, mu.upper, Inf)
     MLE1.upper.c <- c(s.upper, s.upper, s.upper, mu.upper, 0)
             
-    for (t in 1:nIter) {
+    for (t in seq_len(nIter)) {
                 
         ## ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ ##
         ## ~~~~~~~~~~~#~ Step 2: Estimate delta, mu, and sigmas ~#~~~~~~~~~~~~ ##
@@ -281,7 +292,7 @@ results <- function(pdat, p.adj = "BH", sig.level = 0.01, details = FALSE){
         ## .u's always referred to unconstrained MLE .c's always referred to constrained
         ## MLE
                 
-        for (k in 1:M) {
+        for (k in seq_len(M)) {
             MLE2.u <- function(x) {
                 optimize2(x, k, I1, S1, I2, S2, l.iI, l.iS, delta.u[t], mu.u[t], 
                               s1.u[t], s2.u[t], s.u[t])

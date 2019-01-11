@@ -32,6 +32,9 @@ optimize1(x, M, I1, S1, I2, S2, l.iI, l.iS, logit.psi1, logit.psi2, alpha,
 
 \item{equal.variance}{Are the group variances assumed equal? Default value is FALSE.}
 }
+\value{
+The MLEs.
+}
 \description{
 Used internally in PAIRADISE to compute the MLEs of delta, mu, sigma1, sigma2, sigma
 }

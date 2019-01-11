@@ -29,7 +29,7 @@ load.data <- function(my.data) {
     
     message("Loading data...\n")
     
-    if (class(my.data) != "data.frame") {
+    if (!is(my.data, "data.frame")) {
         stop("Error: Data is not in the proper format (not a data frame).")
     }
     

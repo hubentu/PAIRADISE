@@ -16,6 +16,7 @@
 #' @param logit.psi2 Numeric vector with values of logit psi2.
 #' @param alpha Numeric vector with values of alpha.
 #' @param equal.variance Are the group variances assumed equal? Default value is FALSE.
+#' @return The MLEs.
 
 
 optimize1 <- function(x, M, I1, S1, I2, S2, l.iI, l.iS, logit.psi1, logit.psi2, alpha, 

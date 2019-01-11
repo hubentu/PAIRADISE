@@ -33,6 +33,9 @@ optimize2(x, k, I1, S1, I2, S2, l.iI, l.iS, delta, mu, s1, s2, s)
 
 \item{s}{Overall standard deviation. Positive number.}
 }
+\value{
+The MLEs.
+}
 \description{
 Used internally in PAIRADISE to compute the MLEs of logit(psi1), logit(psi2), alpha
 }

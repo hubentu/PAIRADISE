@@ -23,3 +23,7 @@ Column 6 contains the effective length of isoform 1.
 Column 7 contains the effective length of isoform 2.
 Replicates in columns 2-5 should be separated by commas, e.g. "1623,432,6" for three replicates and the replicate order should be consistent for each column to ensure pairs are matched correctly.
 }
+\examples{
+data("sample_dataset")
+pdat <- PDseDataSetFromMat(sample_dataset)
+}

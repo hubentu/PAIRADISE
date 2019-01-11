@@ -32,74 +32,103 @@
 }
 
 .valid.PDseDataSet <- function(object){
-    c(.valid.counts(object),
-      .valid.design(object),
-      .valid.lengths(object))
+    c(
+        .valid.counts(object),
+        .valid.design(object),
+        .valid.lengths(object)
+    )
 }
 
 #' @rdname PDseDataSet
 #' @import SummarizedExperiment
 #' @export
-setClass("PDseDataSet",
-         contains = "SummarizedExperiment",
-         validity = .valid.PDseDataSet)
+setClass(
+    "PDseDataSet",
+    contains = "SummarizedExperiment",
+    validity = .valid.PDseDataSet)
 
 #' PDseDataSet object and constuctor
 #'
-#' `PDseDataSet` is a subclass of `SummarizedExperiment`. It can used to store inclusion and skipping splicing counts for pair designed samples.
+#' `PDseDataSet` is a subclass of `SummarizedExperiment`. It can used
+#' to store inclusion and skipping splicing counts for pair designed
+#' samples.
 #'
-#' @param counts The counts of splicing events, including inclusion and skipping counts in 3 dimensions for each sample.
-#' @param design The paired design data.frame, including sample column for sample ids and group column for design factors.
-#' @param lengths Two columns iLen and sLen for the effective lengths of inclusion and skipping isoforms.
+#' @param counts The counts of splicing events, including inclusion
+#'     and skipping counts in 3 dimensions for each sample.
+#' @param design The paired design data.frame, including sample column
+#'     for sample ids and group column for design factors.
+#' @param lengths Two columns iLen and sLen for the effective lengths
+#'     of inclusion and skipping isoforms.
 #' @return A PDseDataSet object
 #' @rdname PDseDataSet
 #' @importFrom methods new
 #' @export
+#' @examples
+#' icount <- matrix(1:4, 1)
+#' scount <- matrix(5:8, 1)
+#' acount <- abind::abind(icount, scount, along = 3)
+#' design <- data.frame(sample = rep(c("s1", "s2"), 2),
+#' group = rep(c("T", "N"), each = 2))
+#' lens <- data.frame(sLen=1L, iLen=2L)
+#' PDseDataSet(acount, design, lens)
+
 PDseDataSet <- function(counts, design, lengths){
-    se <- SummarizedExperiment(assays = list(counts = counts),
-                               rowData = DataFrame(lengths),
-                               colData = DataFrame(design))
+    se <- SummarizedExperiment(
+        assays = list(counts = counts),
+        rowData = DataFrame(lengths),
+        colData = DataFrame(design))
     new("PDseDataSet", se)
 }
 
 .appNA <- function(datL){
     ssize <- max(lengths(datL[[1]]))
     for(ct in c("I1", "S1", "I2", "S2")){
-        datL[[ct]] <- lapply(datL[[ct]], function(x)c(x, rep(NA, ssize - length(x))))
+        datL[[ct]] <- lapply(datL[[ct]],
+                             function(x)c(x, rep(NA, ssize - length(x))))
     }
     return(datL)
 }
 
 #' PDseDataSet from rMATs/PAIRADISE Mat format
 #'
-#' The Mat format should have 7 columns, arranged as follows:
-#' Column 1 contains the ID of the alternative splicing events.
-#' Column 2 contains counts of isoform 1 corresponding to the first group.
-#' Column 3 contains counts of isoform 2 corresponding to the first group.
-#' Column 4 contains counts of isoform 1 corresponding to the second group.
-#' Column 5 contains counts of isoform 2 corresponding to the second group.
-#' Column 6 contains the effective length of isoform 1.
-#' Column 7 contains the effective length of isoform 2.
-#' Replicates in columns 2-5 should be separated by commas, e.g. "1623,432,6" for three replicates and the replicate order should be consistent for each column to ensure pairs are matched correctly.
+#' The Mat format should have 7 columns, arranged as follows: Column 1
+#' contains the ID of the alternative splicing events.  Column 2
+#' contains counts of isoform 1 corresponding to the first group.
+#' Column 3 contains counts of isoform 2 corresponding to the first
+#' group.  Column 4 contains counts of isoform 1 corresponding to the
+#' second group.  Column 5 contains counts of isoform 2 corresponding
+#' to the second group.  Column 6 contains the effective length of
+#' isoform 1.  Column 7 contains the effective length of isoform 2.
+#' Replicates in columns 2-5 should be separated by commas,
+#' e.g. "1623,432,6" for three replicates and the replicate order
+#' should be consistent for each column to ensure pairs are matched
+#' correctly.
 #' @param dat The Mat format dataframe.
 #' @return A PDseDataSet object
 #' @import abind
 #' @rdname PDseDataSetFromMat
 #' @export
+#' @examples
+#' data("sample_dataset")
+#' pdat <- PDseDataSetFromMat(sample_dataset)
 PDseDataSetFromMat <- function(dat){
     datL <- clean.data(dat)
     datL <- .appNA(datL)
-    lens <- data.frame(iLen = as.integer(datL$length_I),
-                       sLen = as.integer(datL$length_S))
+    lens <- data.frame(
+        iLen = as.integer(datL$length_I),
+        sLen = as.integer(datL$length_S))
 
-    iCounts <- cbind(do.call(rbind, datL$I1),
-                     do.call(rbind, datL$I2))
-    sCounts <- cbind(do.call(rbind, datL$S1),
-                     do.call(rbind, datL$S2))
+    iCounts <- cbind(
+        do.call(rbind, datL$I1),
+        do.call(rbind, datL$I2))
+    sCounts <- cbind(
+        do.call(rbind, datL$S1),
+        do.call(rbind, datL$S2))
     counts <- abind(iCounts, sCounts, along = 3)
     ##design
-    design <- DataFrame(sample=rep(paste0("S", seq(max(datL$M))), 2),
-                        group=rep(c("T", "N"), each=max(datL$M)))
+    design <- DataFrame(
+        sample=rep(paste0("S", seq(max(datL$M))), 2),
+        group=rep(c("T", "N"), each=max(datL$M)))
     ##counts
     ids <- paste(design$sample, design$group, sep=".")
     rownames(counts) <- rownames(lens) <- datL$exonList
