@@ -81,11 +81,13 @@ pairadise <- function(pdat, nIter = 100, tol = 10^(-2), pseudocount = 0,
 #' @param sig.level The cutoff of significant results
 #' @param details Whether to list detailed results.
 #' @return The function return a results DataFrame.
-#'     \item{testStats}{Vector of test statistics for paired
-#'     analysis.}  \item{p.value}{Vector of pvalues for each
-#'     exon/event.}  \item{p.adj}{The adjusted p values} If details is
-#'     TRUE, more detailed parameter estimates for constrained and
-#'     unconstrained model will return.
+#' \item{testStats}{Vector of test statistics for paired
+#'     analysis.}
+#' \item{p.value}{Vector of pvalues for each
+#'     exon/event.}
+#' \item{p.adj}{The adjusted p values}
+#' If details is TRUE, more detailed parameter estimates for constrained and
+#' unconstrained model will return.
 #' @export
 #' @examples
 #' data("sample_dataset")

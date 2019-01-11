@@ -10,7 +10,8 @@ clean.data(my.data)
 \item{my.data}{Data frame containing grouped data to be analyzed.}
 }
 \value{
-The function clean.data returns a list containing the following entries:
+The function clean.data returns a list containing the
+    following entries:
 \item{I1}{Group 1 isoform 1 counts for each replicate.}
 \item{S1}{Group 1 isoform 2 counts for each replicate.}
 \item{I2}{Group 2 isoform 1 counts for each replicate.}
@@ -19,19 +20,22 @@ The function clean.data returns a list containing the following entries:
 \item{length_S}{Effective lengths of isoform 2.}
 \item{exonList}{IDs of the exons/events.}
 \item{nExon}{Number of exons/events.}
-\item{M}{Vector containing the number of replicates per exon/event.}
+\item{M}{Vector containing the number of
+    replicates per exon/event.}
 }
 \description{
-Removes missing data and invalid pairs from the matched pair data to be analyzed by PAIRADISE.
+Removes missing data and invalid pairs from the matched pair data
+to be analyzed by PAIRADISE.
 }
 \details{
-The data frame has 7 columns, arranged as follows:
-Column 1 contains the ID of the exons/events.
-Column 2 contains counts of isoform 1 corresponding to the first group. 
-Column 3 contains counts of isoform 2 corresponding to the first group. 
-Column 4 contains counts of isoform 1 corresponding to the second group. 
-Column 5 contains counts of isoform 2 corresponding to the second group. 
-Replicates in columns 2-5 should be separated by commas, e.g. 1623,432,6 for three replicates.
-Column 6 contains the effective length of isoform 1.
-Column 7 contains the effective length of isoform 2.
+The data frame has 7 columns, arranged as follows: Column
+    1 contains the ID of the exons/events.  Column 2 contains
+    counts of isoform 1 corresponding to the first group.  Column 3
+    contains counts of isoform 2 corresponding to the first group.
+    Column 4 contains counts of isoform 1 corresponding to the
+    second group.  Column 5 contains counts of isoform 2
+    corresponding to the second group.  Replicates in columns 2-5
+    should be separated by commas, e.g. 1623,432,6 for three
+    replicates.  Column 6 contains the effective length of isoform
+    1.  Column 7 contains the effective length of isoform 2.
 }

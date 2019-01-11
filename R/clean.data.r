@@ -7,14 +7,16 @@
 #' @name clean.data
 #' @param my.data Data frame containing grouped data to be analyzed.
 #' @return The function clean.data returns a list containing the
-#'     following entries: \item{I1}{Group 1 isoform 1 counts for each
-#'     replicate.}  \item{S1}{Group 1 isoform 2 counts for each
-#'     replicate.}  \item{I2}{Group 2 isoform 1 counts for each
-#'     replicate.}  \item{S2}{Group 2 isoform 2 counts for each
-#'     replicate.}  \item{length_I}{Effective lengths of isoform 1.}
-#'     \item{length_S}{Effective lengths of isoform 2.}
-#'     \item{exonList}{IDs of the exons/events.}  \item{nExon}{Number
-#'     of exons/events.}  \item{M}{Vector containing the number of
+#'     following entries:
+#' \item{I1}{Group 1 isoform 1 counts for each replicate.}
+#' \item{S1}{Group 1 isoform 2 counts for each replicate.}
+#' \item{I2}{Group 2 isoform 1 counts for each replicate.}
+#' \item{S2}{Group 2 isoform 2 counts for each replicate.}
+#' \item{length_I}{Effective lengths of isoform 1.}
+#' \item{length_S}{Effective lengths of isoform 2.}
+#' \item{exonList}{IDs of the exons/events.}
+#' \item{nExon}{Number of exons/events.}
+#' \item{M}{Vector containing the number of
 #'     replicates per exon/event.}
 #' @details The data frame has 7 columns, arranged as follows: Column
 #'     1 contains the ID of the exons/events.  Column 2 contains
