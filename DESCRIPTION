@@ -17,4 +17,5 @@ Suggests:
     knitr,
     rmarkdown,
     BiocStyle
-biocViews: RNASeq, DifferentialExpression, AlternativeSplicing, StatisticalMethod
+biocViews: RNASeq, DifferentialExpression, AlternativeSplicing, StatisticalMethod,
+    ImmunoOncolgy
