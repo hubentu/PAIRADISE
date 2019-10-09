@@ -1,7 +1,7 @@
 Package: PAIRADISE
 Title: PAIRADISE: Paired analysis of differential isoform expression
 Version: 0.99.5
-Author: Levon Demirdjian, Shihao Shen, Ying Nian Wu, Yi Xing
+Author: Levon Demirdjian, Ying Nian Wu, Yi Xing
 Maintainer: Qiang Hu <Qiang.Hu@roswellpark.org>, Levon Demirdjian <levondem@ucla.edu>
 Description: This package implements the PAIRADISE procedure for detecting
     differential isoform expression between matched replicates in paired RNA-Seq
