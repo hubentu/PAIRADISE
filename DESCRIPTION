@@ -6,7 +6,7 @@ Maintainer: Qiang Hu <Qiang.Hu@roswellpark.org>, Levon Demirdjian <levondem@ucla
 Description: This package implements the PAIRADISE procedure for detecting
     differential isoform expression between matched replicates in paired RNA-Seq
     data.
-Depends: R (>= 3.5.1), nloptr
+Depends: R (>= 3.6), nloptr
 Imports: SummarizedExperiment, S4Vectors, stats, methods, abind, BiocParallel
 License: MIT + file LICENSE
 RoxygenNote: 6.1.1
