@@ -150,7 +150,7 @@ results <- function(pdat, p.adj = "BH", sig.level = 0.01, details = FALSE){
     idx <- tapply(seq(ncol(pdat1)), colData(pdat1)$sample, c)
     idx1 <- do.call(rbind, idx)[,1]
     idx2 <- do.call(rbind, idx)[,2]
-    count1 <- data.frame(cbind(count1[,idx1,], count1[,idx2,]))
+    count1 <- data.frame(cbind(rbind(count1[,idx1,]), rbind(count1[,idx2,])))
     colnames(count1) <- c("I1", "S1", "I2", "S2")
     ## valid
     count1 <- na.omit(count1)

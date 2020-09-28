@@ -3,7 +3,6 @@
 \docType{package}
 \name{PAIRADISE}
 \alias{PAIRADISE}
-\alias{PAIRADISE-package}
 \title{PAIRADISE
 Detecting allele-specific alternative splicing from population-scale RNA-seq data}
 \description{

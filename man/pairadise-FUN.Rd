@@ -4,9 +4,16 @@
 \alias{pairadise}
 \title{pairadise}
 \usage{
-pairadise(pdat, nIter = 100, tol = 10^(-2), pseudocount = 0,
-  seed = 12321, equal.variance = FALSE, numCluster = 2,
-  BPPARAM = MulticoreParam(numCluster))
+pairadise(
+  pdat,
+  nIter = 100,
+  tol = 10^(-2),
+  pseudocount = 0,
+  seed = 12321,
+  equal.variance = FALSE,
+  numCluster = 2,
+  BPPARAM = MulticoreParam(numCluster)
+)
 }
 \arguments{
 \item{pdat}{A PDseDataSet object}

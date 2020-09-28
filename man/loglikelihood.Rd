@@ -4,8 +4,23 @@
 \alias{loglikelihood}
 \title{loglikelihood}
 \usage{
-loglikelihood(M, I1, S1, I2, S2, l.iI, l.iS, logit.psi1, logit.psi2, alpha,
-  s1, s2, s, mu, delta)
+loglikelihood(
+  M,
+  I1,
+  S1,
+  I2,
+  S2,
+  l.iI,
+  l.iS,
+  logit.psi1,
+  logit.psi2,
+  alpha,
+  s1,
+  s2,
+  s,
+  mu,
+  delta
+)
 }
 \arguments{
 \item{M}{Number of replicates for the current exon. Positive integer.}

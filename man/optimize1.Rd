@@ -4,8 +4,20 @@
 \alias{optimize1}
 \title{optimize1}
 \usage{
-optimize1(x, M, I1, S1, I2, S2, l.iI, l.iS, logit.psi1, logit.psi2, alpha,
-  equal.variance = FALSE)
+optimize1(
+  x,
+  M,
+  I1,
+  S1,
+  I2,
+  S2,
+  l.iI,
+  l.iS,
+  logit.psi1,
+  logit.psi2,
+  alpha,
+  equal.variance = FALSE
+)
 }
 \arguments{
 \item{x}{Numeric vector such that x = (sigma1, sigma2, sigma, mu, delta) if equal.variance = FALSE, and x = (sigma1, sigma, mu, delta) if equal.variance = TRUE. sigma1, sigma2, sigma must be positive}

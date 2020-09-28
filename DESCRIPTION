@@ -9,7 +9,7 @@ Description: This package implements the PAIRADISE procedure for detecting
 Depends: R (>= 3.6), nloptr
 Imports: SummarizedExperiment, S4Vectors, stats, methods, abind, BiocParallel
 License: MIT + file LICENSE
-RoxygenNote: 6.1.1
+RoxygenNote: 7.1.1
 Encoding: UTF-8
 VignetteBuilder: knitr
 Suggests: 
